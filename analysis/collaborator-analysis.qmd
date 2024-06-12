@@ -31,5 +31,35 @@ unique(lobster_traps$FISHING_SEASON)
 
 unique(lobster_traps$SITE)
 ```
+### Convert missing values using mutate() and na_if()
+```{r}
+unique(lobster_traps$TRAPS)
+# missing values show up as -99999
+
+```
+```{r}
+# convert missing values to NA
+lobster_traps <- lobster_traps %>% 
+  mutate(TRAPS = na_if(TRAPS, -99999))
+
+unique(lobster_traps$TRAPS)
+
+```
+### Subset that does NOT include observations from Naples Reef (NAPL)
+```{r}
+lobsters_noNAPL <- lobster_traps %>% 
+  filter(SITE != "NAPL")
+
+unique(lobsters_noNAPL$SITE)
+
+```
+### Subset with lobsters at Carpinteria Reef (CARP) AND number of commercial trap floats is greater than 20
+```{r}
+lobsters_CARP_20 <- lobster_traps %>% 
+  filter(SITE == "CARP" & TRAPS > 20)
+
+glimpse(lobsters_CARP_20)
+```
+
 
 
