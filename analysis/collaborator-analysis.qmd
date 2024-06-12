@@ -60,6 +60,42 @@ lobsters_CARP_20 <- lobster_traps %>%
 
 glimpse(lobsters_CARP_20)
 ```
+## Exercise: Data Visualization
 
+### Multi-panel plot of lobster commercial traps (TRAPS) grouped by year
+```{r}
+# using ggplot(), geom_histogram(), and facet_wrap(). Use the variable YEAR in facet_wrap(). Use the object lobster_traps
+ggplot(lobster_traps, aes(x = TRAPS)) +
+  geom_histogram(fill = "red") +
+  facet_wrap(~YEAR)
+
+```
+
+### Line graph of the number of total lobster commercial traps observed (y-axis) by year (x-axis) in the study, grouped by SITE
+```{r}
+lobster_traps_summ <- lobster_traps %>% 
+  dplyr::group_by(SITE, YEAR, .drop = T ) %>% 
+  summarize(TOTAL_TRAPS = sum(TRAPS, na.rm = T))
+
+head(lobster_traps_summ)
+
+```
+
+```{r}
+# line plot
+ggplot(data = lobster_traps_summ, aes(x = YEAR, y = TOTAL_TRAPS)) +
+    geom_line(aes(color = SITE))
+
+# line and point plot
+ggplot(data = lobsters_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
+    geom_point(aes(color = SITE)) +
+    geom_line(aes(color = SITE))
+```
+### Bar graph that shows the amount of high and low fishing pressure of lobster commercial traps at each SITE from 2019-2021.
+```{r}
+# Note: The high and low fishing pressure metrics are completely made up and are not based on any known facts.
+
+
+```
 
 
