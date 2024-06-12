@@ -72,9 +72,56 @@ arroyo<- lobster_abundance %>%
 ```
 
 
+## Exercise: Data Visualization
+
+```{r}
+
+ggplot(lobster_abundance, aes(x = size_mm)) +
+  geom_histogram(fill = "firebrick") +
+  facet_wrap(. ~ site) +
+  theme_bw()
+
+```
 
 
+### Create a line graph of the number of total lobsters observed (y-axis) by year (x-axis) in the study, grouped by SITE.
 
+
+```{r}
+lobsters_summarized<- lobster_abundance %>% 
+  group_by(site, year) %>% 
+  summarize(count= n())
+```
+### Next, create a line graph using ggplot() and geom_line(). Use geom_point() to make the data points more distinct, but ultimately up to you if you want to use it or not. We also want SITE information on this graph, do this by specifying the variable in the color argument. Where should the color argument go? Inside or outside of aes()? Why or why not? Answer: Inside the aes because you want to map color to the variable
+
+```{r}
+ggplot(lobsters_summarized, aes(x = year, count, color = site)) +
+  geom_line() + 
+  geom_point() 
+```
+
+### Making a nicer plot
+
+```{r}
+
+
+ggplot(lobsters_summarized, aes(x = year,y =  count)) +
+  geom_line(size = 0.75, aes(color = site), alpha = 0.75) + 
+  geom_point(size = 1.75, pch = 21, color = "black", aes(fill = site)) +
+  scale_x_continuous(breaks = seq(2012,2022, 2)) +
+  labs(x = "Year", y = "Count", fill= "Site Code",
+        title = "Total Number of Lobsters captured at each site from 2012-2022") +
+  scale_color_viridis_d(guide = "none") +
+  scale_fill_viridis_d() +
+  theme_bw()
+
+```
+
+## Save the plot
+
+```{r}
+ggsave("figs/lobster_abundance_by_site.jpg", width = 12, height = 6, units = "in")
+```
 
 
 
