@@ -120,7 +120,7 @@ ggplot(lobsters_summarized, aes(x = year,y =  count)) +
 ## Save the plot
 
 ```{r}
-ggsave("figs/lobster_abundance_by_site.jpg", width = 12, height = 6, units = "in")
+ggsave(here::here("figs/lobster_abundance_by_site.jpg"), width = 12, height = 6, units = "in")
 ```
 
 
