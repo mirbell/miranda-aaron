@@ -23,6 +23,7 @@ lobster_abundance <- read_csv(here::here("data/Lobster_Abundance_All_Years_20220
 ## Explore the data
 
 ```{r}
+
 head(lobster_abundance)
 
 colnames(lobster_abundance)
@@ -35,6 +36,45 @@ unique(lobster_abundance$SITE)
 
 
 ```
+```{r}
+
+##Making the names lower case
+
+lobster_abundance<-lobster_abundance %>% 
+  janitor::clean_names()
+
+```
+
+
+
+## Convert missing values using mutate() and na_if()
+
+```{r}
+lobster_abundance <- lobster_abundance %>% 
+    mutate(size_mm = na_if(size_mm, -99999))
+
+glimpse(lobster_abundance)
+```
+
+
+## filter() practice, removing NAPL from the sites column
+
+```{r}
+not_napl <- lobster_abundance %>% 
+    filter(site != "NAPL")
+```
+
+### Create and store a subset with lobsters at Arroyo Quemado (AQUE) AND with a carapace length greater than 70 mm. Check your output.
+
+```{r}
+arroyo<- lobster_abundance %>% 
+  filter(site == "AQUE" & size_mm > 70)
+```
+
+
+
+
+
 
 
 
